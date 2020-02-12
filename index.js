@@ -5,10 +5,20 @@ const randomNumber = () =>  Math.floor((Math.random() * 6) + 1);
 const changeDice = (playerNumber, diceNumber) => {
     playerNumber = playerNumber - 1;
 
-    const diceElement = document.querySelectorAll('img')[playerNumber];
     const path = `./images/dice${diceNumber}.png`;
+    const diceElement = document.querySelectorAll('img')[playerNumber];
 
     diceElement.setAttribute("src", path);
+}
+
+const getResultText = (randomNumber1, randomNumber2) => {
+    if (randomNumber1 > randomNumber2) {
+        return "Player 1 wins!";
+   }
+   else if (randomNumber1 < randomNumber2) {
+       return  "Player 2 wins!";
+   }
+   return "Draw!";
 }
 
 // Game logic
@@ -18,18 +28,10 @@ const playGame = (randomNumber1, randomNumber2) => {
 
     changeDice(player1, randomNumber1);
     changeDice(player2, randomNumber2);
-
+    
     const h1 = document.querySelector('h1');
-
-    if (randomNumber1 > randomNumber2) {
-        h1.textContent = "Player 1 wins!";
-    }
-    else if (randomNumber1 < randomNumber2) {
-        h1.textContent = "Player 2 wins!";
-    }
-    else {
-        h1.textContent = "Draw!";
-    }
+    h1.textContent = getResultText(randomNumber1,randomNumber2)
+    
 }
 
 document.querySelector("button").addEventListener("click", () => playGame(randomNumber(), randomNumber()));
